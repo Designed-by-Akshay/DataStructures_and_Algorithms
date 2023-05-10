@@ -1,0 +1,49 @@
+Two Number Sum
+
+Write a function that takes in a non-empty array of distinct integers and an integer representing a target sum. 
+If any two numbers in the input array sum up to the target sum, the function should return them in an array, in any order. 
+If no two numbers sum up to the target sum, the function should return an empty array.
+
+Note that the target sum has to be obtained by summing two different integers in the array; you can't add a single integer to itself 
+in order to obtain the target sum.
+
+You can assume that there will be at most one pair of numbers summing up to the target sum.
+
+Sample Input
+------------
+array = [3, 5, -4, 8, 11, 1, -1, 6]
+targetSum = 10
+
+Sample Output
+------------
+[-1, 11] // the numbers could be in reverse order
+
+
+
+Solution 
+---------
+
+
+def twoNumberSum(array, targetSum):
+    result_list = []
+    seen={}
+    for i,num in enumerate(array):
+        compliment = targetSum - num
+        if compliment in seen:
+            #result_list.append([compliment,num])
+            result_list.append(compliment)
+            result_list.append(num)
+        seen[num]=i
+    print(result_list)
+    return result_list
+    
+    
+Explanation
+-----------
+The solution could have been solved by using two loops in which one gets the a[i] element and the other loops checks
+the value with every other value to check if the two integers sum up to the target sum
+But this process is not very efficient. It results in a Big O of O(n^2) 
+
+The solution can be tweaked to make it O(n)
+An Hash map can be used since its search time is O(1)
+In python a dictionary is an Hashmap hence in the above code the time complexity is O(n)
