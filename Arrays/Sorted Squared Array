@@ -1,0 +1,57 @@
+Sorted Squared Array
+--------------------
+
+Write a function that takes in a non-empty array of integers that are sorted in ascending order and returns a new array of the same length\
+with the squares of the original integers also sorted in ascending order.
+
+Sample Input
+------------
+array = [1, 2, 3, 5, 6, 8, 9]
+
+Sample Output
+-------------
+[1, 4, 9, 25, 36, 64, 81]
+
+
+Solution
+--------
+def sortedSquaredArray(array):
+    left_ptr = 0
+    right_ptr = len(array)-1
+    new_array = [0]*len(array)
+    cursor= len(array)-1
+
+    while left_ptr <= right_ptr:
+        if abs(array[left_ptr])>abs(array[right_ptr]):
+            new_array[cursor] = (array[left_ptr]*array[left_ptr])
+            cursor -=1
+            left_ptr +=1
+        else:
+            new_array[cursor] = (array[right_ptr]*array[right_ptr])
+            cursor -=1
+            right_ptr -=1
+   # print(new_array)
+    
+            
+    return new_array
+    
+    
+Explanation
+------------
+This problem statement looks very easy, The first thing that would come to most people's mind is to simply square each element 
+while looping through the array 
+The approach works if the array contains all positive values. But the problem arrises when the array contains negative values
+As although the array given as input is sorted, when negative numbers are squared it results in positve squares and leads to the array being unsorted/
+To solve this problem a new array can. be initialized with upto n zero values. This maked inserting them at the correct sorted postion easier and saves time since the array is already created.
+and thus insertion at every instance would be o(1)
+
+Now coming to the logic. Values to the left most side of the array ie negative values if squared would disrupt the sorted order if its greater than the square of the rightmost value.
+We assign to pointers the left_ptr and the right_ptr values 0 and n-1 respectively.
+We check if the absolute value of the left ptr is greate than the abolute value of the right pointer if true then this is the largest element in the array and is inserted in 
+the last place of the new array.
+if the absolute value of the left ptr is smaller than the abolute value of the right pointer if true then this is the largest element in the array and is inserted in 
+the last place of the new array.
+if LHS is greater left pointer is incremented by one
+if RHS is greater right pointer is decremented by one
+
+This is done in a while loop until left pointer is less than opr equal to the right pointer after which we can say all the elements have been traversed
