@@ -1,0 +1,89 @@
+There's an algorithms tournament taking place in which teams of programmers compete against each other to solve algorithmic problems as fast as possible.
+Teams compete in a round robin, where each team faces off against all other teams. Only two teams compete against each other at a time, and for each competition, 
+one team is designated the home team, while the other team is the away team. In each competition there's always one winner and one loser; there are no ties.
+A team receives 3 points if it wins and O points if it loses. The winner of the tournament is the team that receives the most amount of points.
+
+Given an array of pairs representing the teams that have competed against each other and an array containing the results of each competition,
+write a function that returns the winner of the tournament. The input arrays are named competitions and results, respectively. The competitions array has elements 
+in the form of homeTeam, awayTeam] , where each team is a string of at most 30 characters representing the name of the team. The results array contains information 
+about the winner of each corresponding competition in the competitions array. Specifically, results [i] denotes the winner of competitions [i], where a 1 in the 
+results array means that the home team in the corresponding competition won and a © means that the away team won.
+
+It's guaranteed that exactly one team will win the tournament and that each team will compete against all other teams exactly once. 
+It's also guaranteed that the tournament will always have at least two teams. 
+
+
+Sample Input
+------------
+competitions = [
+["HTML", "C#"], ["C#", "Python"], ["Python", "HTML"],
+]
+
+results = [0, 0, 1]
+
+Sample Output
+-------------
+"Python"
+/ C# beats HTML, Python Beats C#, and Python Beats HTML.
+// HTML - 0 points
+// C# - 3 points
+// Python - 6 points
+
+Ideal Complexity
+--------------
+ O(n ) time and O(K) space where n is the  of competitions and k is the number of teams
+
+Solution
+---------
+def tournamentWinner(competitions, results):
+    player_score={}
+    highest_score = 0
+    top_player = 'Abc'
+    for i in range(0,len(competitions)):
+        if(results[i]==1):
+            #Home team won
+            winner = competitions[i][0]
+            print('winner',winner)
+        elif(results[i]==0):
+            winner = competitions[i][1]
+            print('winner',winner)
+        if winner in player_score:
+            current_score = player_score[winner]
+            player_score[winner] = current_score + 3
+            
+        else:
+            player_score[winner] = 3
+            
+        if ((player_score[winner])> highest_score):
+                highest_score = player_score[winner]
+                top_player = winner
+
+
+    print('top_scorer',top_player)        
+    return top_player
+    
+
+Explanation
+---------
+To speed up execution of the code a dictionary is used to store the winners point. the key of the dictionary is the name 
+of the winner of each respective game. Dictionaries are hahsh tables in python.
+two other variables are declared where the highest_score is used to keep track of the highest score ever in the game
+the top_player variable is used to store the player name with the highest score.
+
+since we know that there as as many number of results as there are number of competitions it is suffice just to
+iterate over the competitions array.
+
+A check is then performed to see if the home team or the away team won the game from the results array(1-Home eam won 0 away team won)
+and the winner's name is stored in the winner variale
+
+Another check is performed to check is the winner is present as the key in the player_score dictionary
+If the winner is present we get the current score of the winner and then update it with +3
+
+else we create a winner key and assign score 3( as there is always one winner in the game)
+
+now that we have stored the winner and their points in the dictionary 
+we check if the inners score is greater than the highest score
+if true  we assign the highest score as the player_score[winner]
+and top_player as winner
+
+finally we reeturn the top_player after finishing iterating throgh the loop
