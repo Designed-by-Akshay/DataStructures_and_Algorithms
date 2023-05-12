@@ -1,0 +1,67 @@
+Write a function that takes in a non-empty array of distinct integers and an integer representing a target sum. 
+The function should find all triplets in the array that sum up to the target sum and return a two-dimensional array of all these triplets.
+The numbers in each triplet should be ordered in ascending order, and the triplets themselves should be ordered in ascending order with respect to the numbers they hold.
+
+If no three numbers sum up to the target sum, the function should return an empty array.
+
+Sample Input
+-------------
+array = [12, 3, 1, 2, -6, 5, -8, 6]
+targetSum =0
+
+Sample Output
+-------------
+[l-8, 2, 6], [-8, 3, 5], [-6, 1, 5]]
+
+
+Solution
+--------
+def threeNumberSum(array, targetSum):
+    array.sort()
+    a_len = len(array)
+  
+    result_list=[]
+    for i in range(0,a_len-2):
+        
+        left_ptr = i+1
+        right_ptr =a_len-1
+        while(left_ptr<right_ptr):
+            
+            current_sum = array[i]+array[left_ptr]+array[right_ptr]
+            
+            if current_sum == targetSum:
+                result_list.append([array[i],array[left_ptr],array[right_ptr]])
+                left_ptr +=1
+                right_ptr -=1
+                
+            elif current_sum<targetSum:
+                left_ptr +=1
+
+            else:
+                right_ptr -=1
+                
+                
+        
+    return result_list
+    
+    
+Explanation
+-----------
+This code defines a function called threeNumberSum that takes two arguments: an array of integers called array, and an integer called targetSum. 
+The function returns a list of all the unique triplets of integers in the input array that add up to the targetSum.
+The function first sorts the input array in ascending order using the sort() method. This is done to make it easier to find the triplets that add up to the targetSum.
+Then, the function initializes an empty list called result_list to store the triplets that add up to the targetSum.
+The function then loops through the array using a for loop. The loop starts from the first element of the array and goes up to the second to last element of the array 
+(i.e., a_len - 2). This is because, in order to find a triplet, the loop needs to have at least two more elements in the array after the current element.
+
+Within the for loop, the function initializes two pointers called left_ptr and right_ptr. These pointers are used to traverse the array from the left and the right,
+respectively. The left pointer starts from the element after the current element (i.e., i + 1), and the right pointer starts from the last element of the array (i.e., a_len - 1).
+The function then enters a while loop, which continues until the left pointer and the right pointer meet or cross over each other. Within the while loop, the function calculates the
+sum of the current triplet using the current element, the left pointer element, and the right pointer element.
+
+If the current sum is equal to the targetSum, the function appends the triplet to the result_list and moves the left pointer one step to the right and the right pointer one step to the left.
+If the current sum is less than the targetSum, the function moves the left pointer one step to the right.
+If the current sum is greater than the targetSum, the function moves the right pointer one step to the left.
+After the while loop ends, the function moves to the next element in the for loop, and the process repeats until all possible triplets have been checked.
+
+Finally, the function returns the result_list, which contains all the unique triplets of integers in the input array that add up to the targetSum.
